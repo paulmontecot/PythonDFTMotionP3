@@ -30,7 +30,6 @@ def getallfeatures(tag,out):
     datafromfile(tag)
     data = datafromfile(tag)
     #print(data)
-
     X=getFeaturesWindows.getFeaturesWindows(data,out)
     print(X)
     #return(getFeaturesWindows.getFeaturesWindows(data,out))
