@@ -8,12 +8,12 @@ def DFT(dataFrame,m):
 def entropyDFT(dftData,m):
     p_ = float(dftData[m])/np.sum(dftData[1:])
     return (p_)
-def timeIntegral(n,time):
+def TimeIntegral(n,time):
     timeIntegral = [time[0]]
         for k in range(1,n):
             g = timeIntegral.append(time[k]-time[k-1])
         return (g)
-def integralData(n,rowData):
+def IntegralData(n,rowData):
     integralData = np.empty((n,6))
         integralData[:] = np.NAN
         for k in range(0,n):
@@ -22,7 +22,7 @@ def integralData(n,rowData):
                 integralData[k,:] += integralData[k-1,:]
             h = integralData[k,:]
         return(integralData[k,:])
-def doubleIntegraldata(n,integralData,timeIntegral):
+def DoubleIntegralData(n,integralData,timeIntegral):
     doubleIntegralData = np.empty((n,6))
         doubleIntegralData[:] = np.NAN
         for k in range(0,n):

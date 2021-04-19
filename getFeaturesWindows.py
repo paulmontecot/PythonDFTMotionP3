@@ -12,7 +12,7 @@ def getFeaturesWindows(data, out):
 
     lenDat_ = len(data)
     i = 0
-    mBad = 0
+    targetcount = 0
     while i < lenDat_:
         indStart_ = i
         indStop_ = i + dataWindow
@@ -20,8 +20,9 @@ def getFeaturesWindows(data, out):
             indStop_ = lenDat_ - 1
         i += math.floor(dataWindow / 2.0)
         X_ = getFeatures(data[indStart_:indStart_ + dataWindow, :])
-        mBad += 1
-    print(mBad)
+        targetcount += 1
+    print(targetcount)
+    print(X_)
  #       if Xtemp == []:
  #           Xtemp = [X_]  # generate data set matrix
   #      else:
@@ -44,7 +45,7 @@ def getFeaturesWindows(data, out):
   #      else :
  #           X = np.append(X,Xtemp,axis=0)
  #           Xtemp = []
- #   Y = np.append(Y,np.zeros((mBad)))  # update output vector with Y=0 examples
+ #   Y = np.append(Y,np.zeros(targetcount)))  # update output vector with Y=0 examples
 
 
 

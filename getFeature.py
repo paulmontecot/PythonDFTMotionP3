@@ -2,6 +2,13 @@
 import cmath
 import math
 import numpy as np
+import MathCurvesUtilities
+
+def getAllDerivateFeatures(rowData):
+    X_ = getFeatures(rowData)
+    derivate = MathCurvesUtilities(derivate)
+    integral = MathCurvesUtilities(integral)
+    X_.appendgetFeatures(derivate)
 
 def getFeatures(rowData) :
     # Get data
@@ -27,4 +34,17 @@ def getFeatures(rowData) :
     print
     absDFTData
     print
-    absDFTData.shape
+    absDFTData.
+
+    def getAllDerivateFeatures(rowData):
+        X_ = getFeatures(rowData)
+        DFT = MathCurvesUtilities(DFT)
+        EntropyDFT = MathCurvesUtilities(EntropyDFT)
+        TimeIntegral = MathCurvesUtilities(TimeIntegral)
+        IntegralData = MathCurvesUtilities(integraldata)
+        derivate = MathCurvesUtilities(derivate)
+        integral = MathCurvesUtilities(integral)
+
+
+
+        X_.appendgetFeatures(derivate)
