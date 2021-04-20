@@ -17,7 +17,7 @@ def datafromfile(tag):
             for j in range(1,len(dataFile)):
                 data = dataFile[j].split(",")
                 if (len(data)==10):
-                    rowData = np.append(rowData, [[float(data[1]), float(data[2]), float(data[3]), float(data[4]), float(data[5]), float(data[6]),float(data[7]),float(data[8]),float(data[9])]], axis=0)
+                    rowData = np.append(rowData, [[float(data[0]), float(data[1]), float(data[2]), float(data[3]), float(data[4]), float(data[5]),float(data[6]),float(data[7]),float(data[8]),float(data[9])]], axis=0)
             rowData = rowData[1:, :]
             return(rowData)
 
