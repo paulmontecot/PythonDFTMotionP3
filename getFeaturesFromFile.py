@@ -11,7 +11,6 @@ def datafromfile(tag):
     for i in glob.glob(path):
         curFile = open(i,"r")
         dataFile = curFile.read().split("\n")
-
         rowData = np.empty((1, 10))  # [time, accX, accY, accZ, gyrX, gyrY, gyrX, magY, magY, magZ]
         rowData[:] = np.NaN
         if len(dataFile)>= dataWindow:
@@ -24,7 +23,7 @@ def datafromfile(tag):
 
             #print(rowData)
     #curFile.close()
-#datafromfile(tag)
+datafromfile(tag)
 def getallfeatures(tag,out):
     datafromfile(tag)
     data = datafromfile(tag)

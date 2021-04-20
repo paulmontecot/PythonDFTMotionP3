@@ -10,37 +10,37 @@ def entropyDFT(dftData,m):
     return (p_)
 def TimeIntegral(n,time):
     timeIntegral = [time[0]]
-        for k in range(1,n):
-            g = timeIntegral.append(time[k]-time[k-1])
-        return (g)
+    for k in range(1,n):
+        g = timeIntegral.append(time[k]-time[k-1])
+    return (g)
 def IntegralData(n,rowData):
     integralData = np.empty((n,6))
-        integralData[:] = np.NAN
-        for k in range(0,n):
-            integralData[k,:] = rowData[k,:6]*timeIntegral[k]
-            if k>0 :
-                integralData[k,:] += integralData[k-1,:]
+    integralData[:] = np.NAN
+    for k in range(0,n):
+        integralData[k,:] = rowData[k,:6]*timeIntegral[k]
+        if k>0 :
+            integralData[k,:] += integralData[k-1,:]
             h = integralData[k,:]
         return(integralData[k,:])
 def DoubleIntegralData(n,integralData,timeIntegral):
     doubleIntegralData = np.empty((n,6))
-        doubleIntegralData[:] = np.NAN
-        for k in range(0,n):
-            doubleIntegralData[k,:] = integralData[k,:6]*timeIntegral[k]
-            if k>0 :
-                doubleIntegralData[k,:] += doubleIntegralData[k-1,:]
+    doubleIntegralData[:] = np.NAN
+    for k in range(0,n):
+        doubleIntegralData[k,:] = integralData[k,:6]*timeIntegral[k]
+        if k>0 :
+            doubleIntegralData[k,:] += doubleIntegralData[k-1,:]
             j = doubleIntegralData[k,:]
         return(doubleIntegraldata[k,:])
 def derivData(n,rowData):
     derivData = np.empty((n,6))
     derivData[:] = np.NAN
-        for k in range(0,n):
-            if k==0 :
-                derivData[k,:] = (rowData[k+1,:6]-rowData[k,:6])/(time[k+1]-time[k])
-            elif k==n-1 :
-                derivData[k,:] = (rowData[k,:6]-rowData[k-1,:6])/(time[k]-time[k-1])
-            else :
-                derivData[k,:] = (rowData[k+1,:6]-rowData[k-1,:6])/(time[k+1]-time[k-1])
+    for k in range(0,n):
+        if k==0 :
+            derivData[k,:] = (rowData[k+1,:6]-rowData[k,:6])/(time[k+1]-time[k])
+        elif k==n-1 :
+            derivData[k,:] = (rowData[k,:6]-rowData[k-1,:6])/(time[k]-time[k-1])
+        else :
+            derivData[k,:] = (rowData[k+1,:6]-rowData[k-1,:6])/(time[k+1]-time[k-1])
         return(derivData[k,:])
 def doubleDerivData(n,deriveData):
     doubleDerivData = np.empty((n, 6))

@@ -4,11 +4,6 @@ import math
 import numpy as np
 import MathCurvesUtilities
 
-def getAllDerivateFeatures(rowData):
-    X_ = getFeatures(rowData)
-    derivate = MathCurvesUtilities(derivate)
-    integral = MathCurvesUtilities(integral)
-    X_.appendgetFeatures(derivate)
 
 def getFeatures(rowData) :
     # Get data
@@ -31,10 +26,8 @@ def getFeatures(rowData) :
     for i in range(n):
         for j in range(10):
             absDFTData[i, j] = np.absolute(DFT(rowData[:, j], i))
-    print
-    absDFTData
-    print
-    absDFTData.
+    print(absDFTData)
+    print(absDFTData)
 
     def getAllDerivateFeatures(rowData):
         X_ = getFeatures(rowData)
@@ -42,9 +35,8 @@ def getFeatures(rowData) :
         EntropyDFT = MathCurvesUtilities(EntropyDFT)
         TimeIntegral = MathCurvesUtilities(TimeIntegral)
         IntegralData = MathCurvesUtilities(integraldata)
-        derivate = MathCurvesUtilities(derivate)
-        integral = MathCurvesUtilities(integral)
+        DoubleIntegralData = MathCurvesUtilities(DoubleIntegralData)
+        derivData = MathCurvesUtilities(derivData)
+        doubleDerivData = MathCurvesUtilities(doubleDerivData)
 
-
-
-        X_.appendgetFeatures(derivate)
+        X_.appendgetFeatures(DFT, EntropyDFT, TimeIntegral, IntegralData, DoubleIntegralData, derivData, doubleDerivData)
