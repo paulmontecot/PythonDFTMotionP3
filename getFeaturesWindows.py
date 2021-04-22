@@ -43,7 +43,7 @@ def getFeaturesWindows(data, out):
         Y =np.ones((targetcount))
     if out == 0:
         Y =np.zeros((targetcount))
-    print(Y)
+    #print(Y)
 
 
 
