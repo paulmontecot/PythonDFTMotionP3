@@ -193,7 +193,6 @@ def getFeatures_Detection(rowData):
 
     # Mean data
     x_.append(np.max(accX) - np.min(accX))
-    print(x_)
     x_.append(np.max(accY) - np.min(accY))
     x_.append(np.max(accZ) - np.min(accZ))
     x_.append(np.max(gyrX) - np.min(gyrX))
@@ -211,6 +210,7 @@ def getFeatures_Detection(rowData):
     x_ += np.mean(doubleIntegralData, axis=0).tolist()
     x_ += np.mean(derivData, axis=0).tolist()
     x_ += np.mean(doubleDerivData, axis=0).tolist()
+    print('vector', x_)
 
     # Cut each curves and add each point in the features vector
     # ---ROW DATA (AccX, AccY,AccZ, GyrX, GyrY, GyrZ)
@@ -221,7 +221,7 @@ def getFeatures_Detection(rowData):
             rg = ind
         else:
             rg = range(int(ind), int(ind1))
-        print(rg)
+        #print(rg)
         x_.append(np.mean(accX[rg]))
 
     ##----------------------------------------------------------------------------

@@ -24,12 +24,15 @@ def getFeaturesWindows(data, out):
         #X_ = getFeatures(data[indStart_:indStart_ + dataWindow, :])
         X_ = scratch.getFeatures_Detection(data[indStart_:indStart_ + dataWindow, :])
         targetcount += 1
+        print('hey',targetcount)
         if Xtemp == []:
             Xtemp = [X_]  # generate data set matrix
         else:
             Xtemp = np.append(Xtemp, [X_], axis=0)  # update data set matrix
         if np.where(np.isnan(Xtemp))[0].size > 0:
             break
+        return (Xtemp)
+        print('vector2', Xtemp)
 
         if len(Xtemp[:]) > 1000:
             if X == []:
@@ -43,7 +46,7 @@ def getFeaturesWindows(data, out):
         Y =np.ones((targetcount))
     if out == 0:
         Y =np.zeros((targetcount))
-    #print(Y)
+    return(Y)
 
 
 
