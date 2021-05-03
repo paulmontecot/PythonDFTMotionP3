@@ -4,10 +4,9 @@ import numpy as np
 import getFeaturesWindows
 import getFeature
 import scratch
-dataWindow = 20
-#tag = "jerk"
-#out = 1
+dataWindow = 8
 def datafromfile(tag):
+    #get data
     path = (r"C:\Users\CRI User\Documents\GitHub\PythonDFTMotionP3\DataCollection\Movuino-recording-"+tag+".dat")
     for i in glob.glob(path):
         curFile = open(i,"r")
@@ -22,14 +21,9 @@ def datafromfile(tag):
             rowData = rowData[1:, :]
             return(rowData)
             curFile.close()
-
-
-    #curFile.close()
 def getallfeatures(tag,out):
-    #datafromfile(tag)
     data = datafromfile(tag)
-    X=getFeaturesWindows.getFeaturesWindows(data,out)
-    #print('features', X)
-    return(X)
-#getallfeatures(tag,out)
+    #getfeatures
+    X,Y =getFeaturesWindows.getFeaturesWindows(data,out)
+    return(X,Y)
 

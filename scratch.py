@@ -5,7 +5,6 @@ import numpy as np
 # not necessary
 import glob, os  # for debug
 
-
 def drange(start, stop, step):
     # equivalent of function range except that it allows float steps
     r = start
@@ -16,11 +15,11 @@ def drange(start, stop, step):
 
 def DFT(dataFrame, m):
     lFrame_ = len(dataFrame)  # frame length lFram = 2.Ls in publication
-    # print 'lFrame', lFrame
     t = 0
     for n_ in range(lFrame_):
         t += dataFrame[n_] * cmath.exp(-2 * math.pi * 1j * m * n_ / (lFrame_ - 1))
     return t
+
 
 
 def entropyDFT(dftData, m):
@@ -30,6 +29,7 @@ def entropyDFT(dftData, m):
 
 ##----------------------------------------------------------------------------
 def getFeatures_Detection(rowData):
+    vector = 0
     # Compute features of a data sequence corresponding to one move
     # Compute derived data (derived curves) based on row data
     # Slice each data curve to get series of point from each ones
@@ -210,7 +210,6 @@ def getFeatures_Detection(rowData):
     x_ += np.mean(doubleIntegralData, axis=0).tolist()
     x_ += np.mean(derivData, axis=0).tolist()
     x_ += np.mean(doubleDerivData, axis=0).tolist()
-    print ('vector 1',x_)
 
 
     # Cut each curves and add each point in the features vector
