@@ -5,7 +5,7 @@ def PCA(dataSetMatrix):
 # features association: project features on specific vectors to reduce their number
 # PCA function compute Ureduce (used by LogisticRegression.m and PLAY.m)
 # cf. Coursera - Week 13 - PCA Algorithm
-    print('matrixxx',dataSetMatrix)
+    #print('matrixxx',dataSetMatrix)
     m = len(dataSetMatrix[:1])  # number of training example
     X_ = dataSetMatrix
     X_ = np.array(X_)

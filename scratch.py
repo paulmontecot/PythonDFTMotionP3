@@ -210,7 +210,8 @@ def getFeatures_Detection(rowData):
     x_ += np.mean(doubleIntegralData, axis=0).tolist()
     x_ += np.mean(derivData, axis=0).tolist()
     x_ += np.mean(doubleDerivData, axis=0).tolist()
-    print('vector', x_)
+    print ('vector 1',x_)
+
 
     # Cut each curves and add each point in the features vector
     # ---ROW DATA (AccX, AccY,AccZ, GyrX, GyrY, GyrZ)
@@ -227,11 +228,13 @@ def getFeatures_Detection(rowData):
     ##----------------------------------------------------------------------------
     # MAKE FEATURES VECTOR
     Xoutput = np.asarray(x_)
-    # Xoutput = np.concatenate((x_, np.power(x_, 2), np.power(x_, 3), np.sqrt(np.absolute(x_)),np.log(np.absolute(x_)+0.01)), axis=1) # Add features
-    #     Xoutput = Xoutput.reshape(len(Xoutput),1) # reshape array
+    #print('vector', Xoutput)
+    #Xoutput = np.concatenate((x_, np.power(x_, 2), np.power(x_, 3), np.sqrt(np.absolute(x_)),np.log(np.absolute(x_)+0.01)), axis=1) # Add features
+    #Xoutput = Xoutput.reshape(len(Xoutput),1) # reshape array
     if np.where(np.isnan(Xoutput))[0].size != 0:
         print('NANANANANANAN')
     return Xoutput
+
 
 # print("Time to get online")
 # os.chdir("DataCollection/")

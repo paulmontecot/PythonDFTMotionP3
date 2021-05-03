@@ -4,7 +4,7 @@ import numpy as np
 import getFeaturesWindows
 import getFeature
 import scratch
-dataWindow = 30
+dataWindow = 20
 #tag = "jerk"
 #out = 1
 def datafromfile(tag):
@@ -23,13 +23,13 @@ def datafromfile(tag):
             return(rowData)
             curFile.close()
 
-            #print(rowData)
+
     #curFile.close()
 def getallfeatures(tag,out):
     #datafromfile(tag)
     data = datafromfile(tag)
     X=getFeaturesWindows.getFeaturesWindows(data,out)
-    print('features', X)
+    #print('features', X)
     return(X)
 #getallfeatures(tag,out)
 
