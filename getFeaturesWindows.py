@@ -6,21 +6,19 @@ X = []
 dataWindow = 8
 def getFeaturesWindows(data, out):
     Xtemp = []
+    X_ = []
     lenDat_ = len(data)
     i = 0
     targetcount = 0
     #Window rolling
-    while i < (lenDat_):
+    while i < (lenDat_-1):
+        print(i)
         indStart_ = i
-        indStop_ = i + dataWindow
+        indStop_ = indStart_ + dataWindow
         if(indStop_  >= lenDat_) :
             indStop_ = lenDat_ - 1
-        #i += math.floor(dataWindow / 2.0)
-        #Get Vector
-        if lenDat_ - dataWindow < indStart_ + dataWindow:
-            break
-        else:
-            X_ = scratch.getFeatures_Detection(data[indStart_:indStart_ + dataWindow, :])
+        if (indStop_ - indStart_ > 2):
+            X_ = scratch.getFeatures_Detection(data[indStart_:indStop_, :])
             targetcount += 1
             i += math.floor(dataWindow / 2.0)
         if Xtemp == []:
