@@ -5,11 +5,11 @@ import getFeaturesWindows
 import getFeature
 import scratch
 dataWindow = 8
-def datafromfile(tag):
+def datafromfile(file):
     #get data
-    path = (r"C:\Users\CRI User\Documents\GitHub\PythonDFTMotionP3\DataCollection\Movuino-recording-"+tag+".dat")
-    for i in glob.glob(path):
-        curFile = open(i,"r")
+    # path = (r"C:\Users\CRI User\Documents\GitHub\PythonDFTMotionP3\DataCollection\Movuino-recording-"+tag+".dat")
+    # for i in glob.glob(path):
+        curFile = open(file,"r")
         dataFile = curFile.read().split("\n")
         rowData = np.empty((1, 10))  # [time, accX, accY, accZ, gyrX, gyrY, gyrX, magY, magY, magZ]
         rowData[:] = np.NaN
