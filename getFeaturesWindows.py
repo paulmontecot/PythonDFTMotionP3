@@ -1,10 +1,12 @@
 import numpy as np
 import math
+import GetDFT
 from getFeature import getFeatures
 import scratch
 X = []
 dataWindow = 8
 def getFeaturesWindows(data, out):
+    print('activate')
     Xtemp = []
     X_ = []
     lenDat_ = len(data)
@@ -18,21 +20,23 @@ def getFeaturesWindows(data, out):
         if(indStop_  >= lenDat_) :
             indStop_ = lenDat_ - 1
         if (indStop_ - indStart_ > 2):
-            X_ = scratch.getFeatures_Detection(data[indStart_:indStop_, :])
+            X_ = GetDFT.getDFT(data[indStart_:indStop_])
             targetcount += 1
             i += math.floor(dataWindow / 2.0)
         if Xtemp == []:
             Xtemp = [X_]  # generate data set matrix
         else:
+            print('X_',[X_])
             Xtemp = np.append(Xtemp, [X_], axis=0)  # update data set matrix
         if np.where(np.isnan(Xtemp))[0].size > 0:
+            print('beark')
             break
     #get Categories (1/0)
     if out == 1:
         Y = np.ones(targetcount)
     if out == 0:
         Y = np.zeros(targetcount)
-    return (Xtemp,Y)
+    return (Xtemp)
     #Empty Vector
     if len(Xtemp[:]) > 1000:
         if X == []:

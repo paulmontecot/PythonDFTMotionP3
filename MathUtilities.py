@@ -1,11 +1,12 @@
 import numpy as np
 import pandas as pd
+import math
 
 
 def integral(df,data):
     integral = [0]
     for i in range(len(df.index) - 1):
-        if i < 40:
+        #if i < 40:
             dt_ = df.time[i + 1] - df.time[i]
             integral_ = data[i] * dt_
             integral_ += (data[i + 1] - data[i]) * dt_ / 2.0
@@ -16,9 +17,15 @@ def derivData(df,data):
     derivData = [0]
     for i in range(len(df.index) - 1):
         if i == 0:
-            derivData[i] = (data[i + 1] - data[i]) / (df.time[i + 1] - df.time[i])
+            derivData.append((data[i + 1] - data[i]) / (df.time[i + 1] - df.time[i]))
         elif i == len(df.index) - 1:
-            derivData[i] = (data[i] - data[i - 1]) / (df.time[i] - df.time[i - 1])
+            derivData.append((data[i] - data[i - 1]) / (df.time[i] - df.time[i - 1]))
         else:
-            derivData[i] = (data[i + 1] - data[i - 1]) / (df.time[i + 1] - df.time[i - 1])
+            derivData.append((data[i + 1] - data[i - 1]) / (df.time[i + 1] - df.time[i - 1]))
     return(derivData)
+
+def angle(df,X,Z):
+    angle = [0]
+    angle = np.arctan(X/Z)
+    return(angle)
+
