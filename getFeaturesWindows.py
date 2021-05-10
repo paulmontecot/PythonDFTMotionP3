@@ -29,7 +29,7 @@ def getFeaturesWindows(data, out):
             print('X_',[X_])
             Xtemp = np.append(Xtemp, [X_], axis=0)  # update data set matrix
         if np.where(np.isnan(Xtemp))[0].size > 0:
-            print('beark')
+            print('break')
             break
     #get Categories (1/0)
     if out == 1:

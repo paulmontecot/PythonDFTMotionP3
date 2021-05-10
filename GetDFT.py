@@ -1,9 +1,11 @@
 import numpy as np
+import cmath
+import math
 def DFT(data):
-    # lFrame_ = len(dataFrame)  # frame length lFram = 2.Ls in publication
+    # lFrame_ = len(data)  # frame length lFram = 2.Ls in publication
     # t = 0
     # for n_ in range(lFrame_):
-    #     t += dataFrame[n_] * cmath.exp(-2 * math.pi * 1j * m * n_ / (lFrame_ - 1))
+    #     t += data[n_] * cmath.exp(-2 * math.pi * 1j * m * n_ / (lFrame_ - 1))
     # return t
     fourierTransform = np.fft.fft((data) / len(data))
     return (fourierTransform)
@@ -20,7 +22,6 @@ def getDFT(data):
     absDFTData_[:] = np.NaN
     #for i in range(lengFrame):
     absDFTData_ = np.absolute(DFT(data))
-
             # Add DC component as features (for each axis x,y,z)
     x_.append(absDFTData_[0])
 

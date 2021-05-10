@@ -6,7 +6,6 @@ import math
 def integral(df,data):
     integral = [0]
     for i in range(len(df.index) - 1):
-        #if i < 40:
             dt_ = df.time[i + 1] - df.time[i]
             integral_ = data[i] * dt_
             integral_ += (data[i + 1] - data[i]) * dt_ / 2.0
