@@ -37,5 +37,6 @@ def getDFT(data):
         # Add deviation features (time domain)
     datMean = np.mean(data, axis=0)
     x_.append(np.sum(np.power(data - datMean, 2), axis=0))
+    # Add deviation features (time domain)
 
     return(x_)

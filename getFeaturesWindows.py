@@ -4,7 +4,7 @@ import GetDFT
 from getFeature import getFeatures
 import scratch
 X = []
-dataWindow = 8
+dataWindow = 30
 def getFeaturesWindows(data, out):
     print('activate')
     Xtemp = []
@@ -18,7 +18,7 @@ def getFeaturesWindows(data, out):
         indStop_ = indStart_ + dataWindow
         if(indStop_  >= lenDat_) :
             indStop_ = lenDat_ - 1
-        if (indStop_ - indStart_ >= 2):
+        if (indStop_ - indStart_ >= 1):
             X_ = GetDFT.getDFT(data[indStart_:indStop_])
             targetcount += 1
             i += math.floor(dataWindow / 2.0)

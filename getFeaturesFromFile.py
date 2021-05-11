@@ -2,7 +2,7 @@ import glob
 import os
 import numpy as np
 import getFeaturesWindows
-dataWindow = 8
+dataWindow = 30
 def datafromfile(file):
     #get data
         curFile = open(file,"r")
@@ -17,9 +17,4 @@ def datafromfile(file):
             rowData = rowData[1:, :]
             return(rowData)
             curFile.close()
-def getallfeatures(tag,out):
-    data = datafromfile(tag)
-    #getfeatures
-    X,Y =getFeaturesWindows.getFeaturesWindows(data,out)
-    return(X,Y)
 
