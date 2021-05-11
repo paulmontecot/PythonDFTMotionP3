@@ -6,28 +6,28 @@ import pandas as pd
 import glob
 import MathUtilities
 
-#load files
-path = r'C:\Users\CRI User\Documents\GitHub\PythonDFTMotionP3\DataCollection'
-files = glob.glob(path + '/*smooth*')
-df = pd.DataFrame()
-for file in files:
-    df = df.append(pd.DataFrame(getFeaturesFromFile.datafromfile(file)), ignore_index=True)
-df.columns = ['time', 'accX', 'accY', 'accZ', 'gyrX', 'gyrY', 'gyrZ', 'magX', 'magY', 'magZ']
-print(df)
-data = df['gyrX']
-integral = MathUtilities.integral(df,data)
-derivate = MathUtilities.derivData(df,data)
-angle = MathUtilities.angle(df,df.accX,df.accZ)
-print('integral', integral)
-print('derivate', derivate)
-print('angle', angle)
-
-X= getFeaturesWindows.getFeaturesWindows(angle,1)
-dfx = pd.DataFrame(X)
-dfx.columns = ['DC','energy','entropyDFT','Deviation']
-print(dfx)
-
-plot.plotfeatures(dfx)
+# #load files
+# path = r'C:\Users\CRI User\Documents\GitHub\PythonDFTMotionP3\DataCollection'
+# files = glob.glob(path + '/*smooth*')
+# df = pd.DataFrame()
+# for file in files:
+#     df = df.append(pd.DataFrame(getFeaturesFromFile.datafromfile(file)), ignore_index=True)
+# df.columns = ['time', 'accX', 'accY', 'accZ', 'gyrX', 'gyrY', 'gyrZ', 'magX', 'magY', 'magZ']
+# print(df)
+# data = df['gyrX']
+# integral = MathUtilities.integral(df,data)
+# derivate = MathUtilities.derivData(df,data)
+# angle = MathUtilities.angle(df,df.accX,df.accZ)
+# print('integral', integral)
+# print('derivate', derivate)
+# print('angle', angle)
+#
+# X= getFeaturesWindows.getFeaturesWindows(angle,1)
+# dfx = pd.DataFrame(X)
+# dfx.columns = ['DC','energy','entropyDFT','Deviation']
+# print(dfx)
+#
+# plot.plotfeatures(dfx)
 
 
 

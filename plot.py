@@ -23,7 +23,7 @@ def plotdata(df, integral, derivate, angle):
     ax3.set_title('Angle')
     plt.show()
 
-def plotfeatures(dfx):
+def plotfeatures(dfinal):
     fig = plt.figure(figsize=(25, 10))
     ax1 = fig.add_subplot(2, 3, 1)
     ax2 = fig.add_subplot(2, 3, 2)
@@ -32,12 +32,12 @@ def plotfeatures(dfx):
     ax5 = fig.add_subplot(2,3,5)
     ax6 = fig.add_subplot(2,3,6)
     fig.tight_layout(pad=3)
-    ax1.scatter(dfx['DC'], dfx['Deviation'],  c=dfx.index)
-    ax2.scatter(dfx['DC'], dfx['energy'],c=dfx.index)
-    ax3.scatter(dfx['DC'], dfx['entropyDFT'],c=dfx.index)
-    ax4.scatter(dfx['energy'], dfx['entropyDFT'],c=dfx.index)
-    ax5.scatter(dfx['energy'], dfx['Deviation'],c=dfx.index)
-    ax6.scatter(dfx['entropyDFT'], dfx['Deviation'],c=dfx.index)
+    ax1.scatter(dfinal['DC'], dfinal['Deviation'],  c=dfinal.target)
+    ax2.scatter(dfinal['DC'], dfinal['energy'],c=dfinal.target)
+    ax3.scatter(dfinal['DC'], dfinal['entropyDFT'],c=dfinal.target)
+    ax4.scatter(dfinal['energy'], dfinal['entropyDFT'],c=dfinal.target)
+    ax5.scatter(dfinal['energy'], dfinal['Deviation'],c=dfinal.target)
+    ax6.scatter(dfinal['entropyDFT'], dfinal['Deviation'],c=dfinal.target)
     ax1.set_xlabel('DC')
     ax1.set_ylabel('Deviation')
     ax1.set_title('DC x Deviation')
