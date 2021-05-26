@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 def plotdata(df, integral, derivate, angle):
 
@@ -32,12 +33,26 @@ def plotfeatures(dfinal):
     ax5 = fig.add_subplot(2,3,5)
     ax6 = fig.add_subplot(2,3,6)
     fig.tight_layout(pad=3)
-    ax1.scatter(dfinal['DC'], dfinal['Deviation'],  c=dfinal.target)
-    ax2.scatter(dfinal['DC'], dfinal['energy'],c=dfinal.target)
-    ax3.scatter(dfinal['DC'], dfinal['entropyDFT'],c=dfinal.target)
-    ax4.scatter(dfinal['energy'], dfinal['entropyDFT'],c=dfinal.target)
-    ax5.scatter(dfinal['energy'], dfinal['Deviation'],c=dfinal.target)
-    ax6.scatter(dfinal['entropyDFT'], dfinal['Deviation'],c=dfinal.target)
+    rect = fig.patch
+    rect.set_facecolor('#B4BAD6')
+    ax1.spines['right'].set_visible(False)
+    ax1.spines['top'].set_visible(False)
+    ax2.spines['right'].set_visible(False)
+    ax2.spines['top'].set_visible(False)
+    ax3.spines['right'].set_visible(False)
+    ax3.spines['top'].set_visible(False)
+    ax4.spines['right'].set_visible(False)
+    ax4.spines['top'].set_visible(False)
+    ax5.spines['right'].set_visible(False)
+    ax5.spines['top'].set_visible(False)
+    ax6.spines['right'].set_visible(False)
+    ax6.spines['top'].set_visible(False)
+    ax1.scatter(dfinal['DC'], dfinal['Deviation'],  c=dfinal.target, marker='o', alpha= 0.5)
+    ax2.scatter(dfinal['DC'], dfinal['energy'],c=dfinal.target,marker='o', alpha= 0.5)
+    ax3.scatter(dfinal['DC'], dfinal['entropyDFT'],c=dfinal.target, marker='o', alpha= 0.5)
+    ax4.scatter(dfinal['energy'], dfinal['entropyDFT'],c=dfinal.target, marker='o', alpha= 0.5)
+    ax5.scatter(dfinal['energy'], dfinal['Deviation'],c=dfinal.target, marker='o', alpha= 0.5)
+    ax6.scatter(dfinal['entropyDFT'], dfinal['Deviation'],c=dfinal.target, marker='o', alpha= 0.5)
     ax1.set_xlabel('DC')
     ax1.set_ylabel('Deviation')
     ax1.set_title('DC x Deviation')
