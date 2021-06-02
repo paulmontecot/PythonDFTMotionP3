@@ -2,7 +2,7 @@ import numpy as np
 import math
 import GetDFT
 X = []
-dataWindow = 10
+dataWindow = 8
 
 def getFeaturesWindows(data, out):
 

@@ -7,7 +7,7 @@ import glob
 import MathUtilities
 import os, fnmatch
 datatype = 'accZ'
-path = r'C:\Users\CRI User\Documents\GitHub\PythonDFTMotionP3\goodata\IVSL'
+path = r'C:\Users\CRI User\Documents\GitHub\PythonDFTMotionP3\goodata\LOOPD'
 pattern = "*good*"
 
 def runcode():
@@ -33,7 +33,7 @@ def runcode():
             angle = MathUtilities.angle(df, df.accX, df.accZ)
 
             # Get Features by Window
-            Xbad,Ybad = getFeaturesWindows.getFeaturesWindows(integral, 1)
+            Xbad,Ybad = getFeaturesWindows.getFeaturesWindows(angle, 1)
 
             # Create DataFrame with Bad Examples
             dfxbad = pd.DataFrame(Xbad)
@@ -58,7 +58,7 @@ def runcode():
             angle = MathUtilities.angle(df, df.accX, df.accZ)
 
             # Get Features by Window
-            Xgood, Ygood = getFeaturesWindows.getFeaturesWindows(integral, 0)
+            Xgood, Ygood = getFeaturesWindows.getFeaturesWindows(angle, 0)
 
             # Create DataFrame with Bad Examples
             dfxgood = pd.DataFrame(Xgood)
@@ -72,5 +72,6 @@ def runcode():
     print (dfinal)
     plot.plotfeatures(dfinal)
     plot.plotdata(df, integral, derivate, angle)
+    dfinal.to_csv(r'C:\Users\CRI User\Desktop\DataSets\LoopsAngle.csv')
 
 runcode()

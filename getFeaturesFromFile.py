@@ -2,7 +2,7 @@ import glob
 import os
 import numpy as np
 import getFeaturesWindows
-dataWindow = 10
+dataWindow = 8
 def datafromfile(file):
 
     # Open File
