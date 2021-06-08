@@ -26,6 +26,7 @@ def runcode():
 
             # Select and set up Data
             data = df[datatype]
+            #alldata = df
             df['integral'] = MathUtilities.integral(df, data)
             integral = df['integral']
             df['derivate'] = MathUtilities.derivData(df, data)
