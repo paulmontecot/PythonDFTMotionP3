@@ -2,7 +2,7 @@ import numpy as np
 import math
 import GetDFT
 X = []
-dataWindow = 8
+dataWindow = 10
 
 def getFeaturesWindows(data, out):
 
@@ -36,7 +36,7 @@ def getFeaturesWindows(data, out):
             break
 
     # Empty Vector
-    if len(Xtemp[:]) > 1000:
+    if len(Xtemp[:]) > 100000:
         if X == []:
             X = Xtemp
             Xtemp = []

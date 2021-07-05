@@ -1,6 +1,8 @@
 import getFeaturesFromFile
 import getFeaturesWindows
 import plot
+from sklearn import preprocessing
+import plotlyplot
 from PCA import PCA
 import pandas as pd
 import glob
@@ -22,7 +24,15 @@ def runcode():
             # Get Data
             df = pd.DataFrame()
             df = df.append(pd.DataFrame(getFeaturesFromFile.datafromfile(path + '\\' + filename)), ignore_index=True)
+            #df.columns = ['time', 'accX', 'accY', 'accZ', 'gyrX', 'gyrY', 'gyrZ', 'magX', 'magY', 'magZ']
+
+            # Normalize
+            x = df
+            min_max_scaler = preprocessing.MinMaxScaler()
+            x_scaled = min_max_scaler.fit_transform(x)
+            df = pd.DataFrame(x_scaled)
             df.columns = ['time', 'accX', 'accY', 'accZ', 'gyrX', 'gyrY', 'gyrZ', 'magX', 'magY', 'magZ']
+
 
             # Select and set up Data
             data = df[datatype]
@@ -34,7 +44,7 @@ def runcode():
             angle = MathUtilities.angle(df, df.accX, df.accZ)
 
             # Get Features by Window
-            Xbad,Ybad = getFeaturesWindows.getFeaturesWindows(angle, 1)
+            Xbad,Ybad = getFeaturesWindows.getFeaturesWindows(data, 1)
 
             # Create DataFrame with Bad Examples
             dfxbad = pd.DataFrame(Xbad)
@@ -59,7 +69,7 @@ def runcode():
             angle = MathUtilities.angle(df, df.accX, df.accZ)
 
             # Get Features by Window
-            Xgood, Ygood = getFeaturesWindows.getFeaturesWindows(angle, 0)
+            Xgood, Ygood = getFeaturesWindows.getFeaturesWindows(data, 0)
 
             # Create DataFrame with Bad Examples
             dfxgood = pd.DataFrame(Xgood)
@@ -72,7 +82,8 @@ def runcode():
     dfinal = pd.concat([dfgood, dfbad], axis=0)
     print (dfinal)
     plot.plotfeatures(dfinal)
+    #plotlyplot.plotdatabeautyful(dfinal)
     plot.plotdata(df, integral, derivate, angle)
-    dfinal.to_csv(r'C:\Users\CRI User\Desktop\DataSets\LoopsAngle.csv')
+    dfinal.to_csv(r'C:\Users\CRI User\Desktop\DataSets\LOOPposter.csv')
 
 runcode()
