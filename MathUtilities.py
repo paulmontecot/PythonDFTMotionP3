@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-import math
 
 
 def integral(df,data):
@@ -27,5 +26,9 @@ def angle(df,X,Z):
     angle = [0]
     angle = np.arctan(X/Z)
     return(angle)
+
+def norme(df):
+    norme = np.sqrt(((df['accX'])**2)+(df['accY']**2)+(df['accZ']**2))
+    return(norme)
 
 

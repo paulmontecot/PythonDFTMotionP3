@@ -9,7 +9,7 @@ import glob
 import MathUtilities
 import os, fnmatch
 datatype = 'accZ'
-path = r'C:\Users\CRI User\Documents\GitHub\PythonDFTMotionP3\goodata\LOOPD'
+path = r'C:\Users\CRI User\Documents\GitHub\PythonDFTMotionP3\goodata\Openclose'
 pattern = "*good*"
 
 def runcode():
@@ -27,12 +27,11 @@ def runcode():
             #df.columns = ['time', 'accX', 'accY', 'accZ', 'gyrX', 'gyrY', 'gyrZ', 'magX', 'magY', 'magZ']
 
             # Normalize
-            x = df
-            min_max_scaler = preprocessing.MinMaxScaler()
-            x_scaled = min_max_scaler.fit_transform(x)
-            df = pd.DataFrame(x_scaled)
+            #x = df
+            #min_max_scaler = preprocessing.MinMaxScaler()
+            #x_scaled = min_max_scaler.fit_transform(x)
+            #df = pd.DataFrame(x_scaled)
             df.columns = ['time', 'accX', 'accY', 'accZ', 'gyrX', 'gyrY', 'gyrZ', 'magX', 'magY', 'magZ']
-
 
             # Select and set up Data
             data = df[datatype]
@@ -80,10 +79,20 @@ def runcode():
 
     # Create Final DataFrame
     dfinal = pd.concat([dfgood, dfbad], axis=0)
+    #Normalize
+    h = dfinal
+    min_max_scaler = preprocessing.MinMaxScaler()
+    h_scaled = min_max_scaler.fit_transform(h)
+    dfinal = pd.DataFrame(h_scaled)
+    dfinal.columns = ['DC', 'energy', 'entropyDFT', 'Deviation', 'target']
+    #dfi.columns = ['time', 'accX', 'accY', 'accZ', 'gyrX', 'gyrY', 'gyrZ', 'magX', 'magY', 'magZ']
     print (dfinal)
+    #print(dfinal)
+    #plot.plotfeatures(dfinal)
     plot.plotfeatures(dfinal)
+
     #plotlyplot.plotdatabeautyful(dfinal)
     plot.plotdata(df, integral, derivate, angle)
-    dfinal.to_csv(r'C:\Users\CRI User\Desktop\DataSets\LOOPposter.csv')
+    #dfinal.to_csv(r'C:\Users\CRI User\Desktop\DataSets\openclosepierro.csv')
 
 runcode()
