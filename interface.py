@@ -3,6 +3,7 @@ import pandas as pd
 import base64
 import MathUtilities
 import getFeaturesWindows
+import emoji
 
 #app
 
@@ -51,10 +52,28 @@ variance = dffinaldata.var(axis=1)
 df_BHK = pd.DataFrame()
 df_Global = pd.DataFrame()
 
+if finger == False:
+    finger = "\U0001F534"
+elif finger == True:
+    finger = "\U0001F7E2"
+
+if wrist == False:
+    wrist = "\U0001F534"
+elif wrist == True:
+    wirst = "\U0001F7E2"
+
+if elbow == False:
+    elbow = "\U0001F534"
+elif elbow == True:
+    elbow = "\U0001F7E2"
+
+if shoulder == False:
+    shoulder = "\U0001F534"
+elif shoulder == True:
+    shoulder = "\U0001F7E2"
+
 if st.button('GENERATE'):
-    #get_dataBHK().append({"BHK score": BHK_score, "handed": handed, "Constraint": constraint, "wrist":wrist,"elbow":elbow,"shoulder":shoulder})
-    #get_dataglobal().append({"Mean": mean, "Median": median, "standard deviation": standard_deviation, "variance": variance})
-    dataBHK = {"BHK score": BHK_score,"finger": finger, "handed": handed, "Constraint": constraint, "wrist":wrist,"elbow":elbow,"shoulder":shoulder}
+    dataBHK = {"BHK score": BHK_score, "handedness": handed, "Constraint": constraint,"finger": finger, "wrist":wrist,"elbow":elbow,"shoulder":shoulder}
     dataglobal = {"Mean": mean, "Median": median, "standard deviation": standard_deviation, "variance": variance}
     df_BHK = pd.DataFrame.from_records([dataBHK])
     df_Global = pd.DataFrame.from_records(dataglobal)
