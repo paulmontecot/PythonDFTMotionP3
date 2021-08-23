@@ -3,7 +3,6 @@ import pandas as pd
 import base64
 import MathUtilities
 import getFeaturesWindows
-import plot
 
 #app
 
@@ -64,7 +63,6 @@ if st.button('GENERATE'):
     st.dataframe(df_BHK)
     st.dataframe(df_Global)
     st.dataframe(df_Frames)
-    st.write(plot.plotfeaturesnotarget(df_Frames))
 
 
 
