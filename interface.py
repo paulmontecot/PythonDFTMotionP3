@@ -1,6 +1,9 @@
 import streamlit as st
 import pandas as pd
 import base64
+import MathUtilities
+import getFeaturesWindows
+import plot
 
 #app
 
@@ -15,12 +18,13 @@ if uploaded_file is not None:
     dataframe = pd.read_csv(uploaded_file)
     dataframe.columns = ['time', 'accX', 'accY', 'accZ', 'gyrX', 'gyrY', 'gyrZ', 'magX', 'magY', 'magZ']
     st.write(dataframe)
-    Data = df[datatype]
-    df['norme'] = MathUtilities.norme(df)
-    norme = df['norme']
+    Data = dataframe[datatype]
+    dataframe['norme'] = MathUtilities.norme(dataframe)
+    norme = dataframe['norme']
     Xfinaldata, Yfinaldata = getFeaturesWindows.getFeaturesWindows(Data, 1)
     dffinaldata = pd.DataFrame(Xfinaldata)
-    dffinaldata.columns = ['DC', 'energy', 'entropyDFT', 'Deviation','contact','pressure']
+    #dffinaldata.columns = ['DC', 'energy', 'entropyDFT', 'Deviation','contact','pressure']
+    dffinaldata.columns = ['DC', 'energy', 'entropyDFT', 'Deviation']
 
 BHK_score = st.text_input("BHK Score")
 
@@ -41,26 +45,32 @@ def get_dataBHK():
     return[]
 def get_dataglobal():
     return[]
-
+mean = dffinaldata.mean(axis=1)
+median = dffinaldata.median(axis=1)
+standard_deviation = dffinaldata.std(axis=1)
+variance = dffinaldata.var(axis=1)
+df_BHK = pd.DataFrame()
+df_Global = pd.DataFrame()
 
 if st.button('GENERATE'):
-    get_dataBHK().append({"BHK score": BHK_score, "handed": handed, "Constraint": constraint, "wrist":wrist,"elbow":elbow,"shoulder":shoulder})
-    get_dataglobal().append({"Mean": mean, "Median": median, "standard deviation": standard_deviation, "variance": variance})
+    #get_dataBHK().append({"BHK score": BHK_score, "handed": handed, "Constraint": constraint, "wrist":wrist,"elbow":elbow,"shoulder":shoulder})
+    #get_dataglobal().append({"Mean": mean, "Median": median, "standard deviation": standard_deviation, "variance": variance})
+    dataBHK = {"BHK score": BHK_score,"finger": finger, "handed": handed, "Constraint": constraint, "wrist":wrist,"elbow":elbow,"shoulder":shoulder}
+    dataglobal = {"Mean": mean, "Median": median, "standard deviation": standard_deviation, "variance": variance}
+    df_BHK = pd.DataFrame.from_records([dataBHK])
+    df_Global = pd.DataFrame.from_records(dataglobal)
+    df_Frames = dffinaldata
 
-dffinaldata = pd.DataFrame()
-df_BHK = pd.DataFrame(get_dataBHK())
-df_Global = pd.DataFrame(get_dataglobal())
-df_Frames = dffinaldata
-
-st.dataframe(df_BHK)
-st.dataframe(df_Global)
-st.dataframe(df_Frames)
+    st.dataframe(df_BHK)
+    st.dataframe(df_Global)
+    st.dataframe(df_Frames)
+    st.write(plot.plotfeaturesnotarget(df_Frames))
 
 
 
-df_final = pd.concat([df_BHK, df_Global, df_Frames], axis=0)
+    df_final = pd.concat([df_BHK, df_Global, df_Frames], axis=0)
 
-if st.button('Dowload'):
+if st.button('Download'):
     csv = dffinaldata.to_csv(index=False)
     b64 = base64.b64encode(csv.encode()).decode()
     st.markdown('### **⬇️ Download output CSV File **')
