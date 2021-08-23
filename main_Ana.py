@@ -19,7 +19,7 @@ def runfeaturesextract():
         df.columns = ['time', 'accX', 'accY', 'accZ', 'gyrX', 'gyrY', 'gyrZ', 'magX', 'magY', 'magZ']
 
     # Datatype is the axis of data you want, you just have to replace by the correpsonding column. (exemple 'accX')
-    datatype = ['accX']
+    datatype = ['accZ']
 
     # Operations for Different versions of Data
     Data = df[datatype]

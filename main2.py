@@ -9,7 +9,7 @@ import glob
 import MathUtilities
 import os, fnmatch
 datatype = 'accZ'
-path = r'C:\Users\CRI User\Documents\GitHub\PythonDFTMotionP3\goodata\Openclose'
+path = r'C:\Users\CRI User\Documents\GitHub\PythonDFTMotionP3\goodata\atelle'
 pattern = "*good*"
 
 def runcode():
@@ -41,9 +41,10 @@ def runcode():
             df['derivate'] = MathUtilities.derivData(df, data)
             derivate = df['derivate']
             angle = MathUtilities.angle(df, df.accX, df.accZ)
+            norme = MathUtilities.norme(df)
 
             # Get Features by Window
-            Xbad,Ybad = getFeaturesWindows.getFeaturesWindows(data, 1)
+            Xbad,Ybad = getFeaturesWindows.getFeaturesWindows(norme, 1)
 
             # Create DataFrame with Bad Examples
             dfxbad = pd.DataFrame(Xbad)
@@ -66,9 +67,10 @@ def runcode():
             df['derivate'] = MathUtilities.derivData(df, data)
             derivate = df['derivate']
             angle = MathUtilities.angle(df, df.accX, df.accZ)
+            norme = MathUtilities.norme(df)
 
             # Get Features by Window
-            Xgood, Ygood = getFeaturesWindows.getFeaturesWindows(data, 0)
+            Xgood, Ygood = getFeaturesWindows.getFeaturesWindows(norme, 0)
 
             # Create DataFrame with Bad Examples
             dfxgood = pd.DataFrame(Xgood)
@@ -93,6 +95,6 @@ def runcode():
 
     #plotlyplot.plotdatabeautyful(dfinal)
     plot.plotdata(df, integral, derivate, angle)
-    #dfinal.to_csv(r'C:\Users\CRI User\Desktop\DataSets\openclosepierro.csv')
+    #dfinal.to_csv(r'C:\Users\CRI User\Desktop\DataSets\atelle_ananorme.csv')
 
 runcode()
