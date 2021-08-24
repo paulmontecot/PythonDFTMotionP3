@@ -4,6 +4,7 @@ import base64
 import MathUtilities
 import getFeaturesWindows
 
+#Config of the app
 st.set_page_config(
     # Can be "centered" or "wide". In the future also "dashboard", etc.
     layout="wide",
@@ -17,26 +18,12 @@ st.set_page_config(
 
 st.title("Features Extraction Interface \U0001F58A")
 st.markdown("**Fill the differents items then click on generate**")
-st.subheader('Please Upload Data \U00002B07')
-uploaded_file = st.file_uploader("")
+
+#Data Infos
 st.subheader('User ID')
 user_id = st.text_input("")
 st.sidebar.subheader("Data type")
 datatype = st.sidebar.selectbox("",('accX','accY','accZ','Norme'))
-if uploaded_file is not None:
-    dataframe = pd.read_csv(uploaded_file)
-    dataframe.columns = ['time', 'accX', 'accY', 'accZ', 'gyrX', 'gyrY', 'gyrZ', 'magX', 'magY', 'magZ']
-    dataframe['Norme'] = MathUtilities.norme(dataframe)
-    Norme = dataframe['Norme']
-    st.write(dataframe)
-    Data = dataframe[datatype]
-    Xfinaldata, Yfinaldata = getFeaturesWindows.getFeaturesWindows(Data, 1)
-    dffinaldata = pd.DataFrame(Xfinaldata)
-    #dffinaldata.columns = ['DC', 'energy', 'entropyDFT', 'Deviation','contact','pressure']
-    dffinaldata.columns = ['DC', 'energy', 'entropyDFT', 'Deviation']
-
-else:
-    dffinaldata = pd.DataFrame()
 
 st.subheader('BHK Score')
 BHK_score = st.text_input(" ")
@@ -53,11 +40,28 @@ elbow = st.checkbox("elbow")
 shoulder = st.checkbox("shoulder")
 st.subheader('Frame Resolution')
 int_val = st.number_input('', min_value=1, max_value=10, value=5, step=1)
+#Data Upload
+st.subheader('Please Upload Data \U00002B07')
+uploaded_file = st.file_uploader("")
 
-def get_dataBHK():
-    return[]
-def get_dataglobal():
-    return[]
+if uploaded_file is not None:
+    dataframe = pd.read_csv(uploaded_file)
+    dataframe.columns = ['time', 'accX', 'accY', 'accZ', 'gyrX', 'gyrY', 'gyrZ', 'magX', 'magY', 'magZ']
+    #Data Type setting
+    dataframe['Norme'] = MathUtilities.norme(dataframe)
+    Norme = dataframe['Norme']
+    st.write(dataframe)
+    Data = dataframe[datatype]
+    #Features extraction
+    Xfinaldata, Yfinaldata = getFeaturesWindows.getFeaturesWindows(Data, 1)
+    dffinaldata = pd.DataFrame(Xfinaldata)
+    # For Further analysis, adding pressure --> dffinaldata.columns = ['DC', 'energy', 'entropyDFT', 'Deviation','contact','pressure']
+    dffinaldata.columns = ['DC', 'energy', 'entropyDFT', 'Deviation']
+
+else:
+     dffinaldata = pd.DataFrame()
+
+
 mean = dffinaldata.mean(axis=0)
 median = dffinaldata.median(axis=0)
 standard_deviation = dffinaldata.std(axis=0)
@@ -98,22 +102,10 @@ if st.button('GENERATE'):
     st.dataframe(df_Global)
     st.dataframe(df_Frames)
 
-
-
     df_final = pd.concat([df_BHK, df_Global, df_Frames], axis=0)
 
-#if st.button('Download'):
-    csv = df_Frames.to_csv(index=False)
+    csv = df_final.to_csv(index=False)
     b64 = base64.b64encode(csv.encode()).decode()
     st.markdown('### **⬇️ Download output CSV File **')
     href = f'<a href="data:file/csv;base64,{b64}">Download CSV File</a> (right-click and save as ".csv")'
     st.markdown(href, unsafe_allow_html=True)
-
-# def get_binary_file_downloader_html(bin_file, file_label='File'):
-#     with open(bin_file, 'rb') as f:
-#         data = f.read()
-#     bin_str = base64.b64encode(data).decode()
-#     href = f'<a href="data:application/octet-stream;base64,{bin_str}" download="{os.path.basename(bin_file)}">Download {file_label}</a>'
-#     return href
-#
-# st.markdown(get_binary_file_downloader_html('data.csv', 'My Data'), unsafe_allow_html=True)
