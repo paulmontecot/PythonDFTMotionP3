@@ -3,7 +3,6 @@ import pandas as pd
 import base64
 import MathUtilities
 import getFeaturesWindows
-import emoji
 
 st.set_page_config(
     # Can be "centered" or "wide". In the future also "dashboard", etc.
