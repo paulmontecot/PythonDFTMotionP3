@@ -17,12 +17,12 @@ st.set_page_config(
 
 st.title("Features Extraction Interface \U0001F58A")
 st.markdown("**Fill the differents items then click on generate**")
+st.subheader('Please Upload Data \U00002B07')
+uploaded_file = st.file_uploader("")
 st.subheader('User ID')
 user_id = st.text_input("")
 st.sidebar.subheader("Data type")
 datatype = st.sidebar.selectbox("",('accX','accY','accZ','Norme'))
-st.subheader('Please Upload Data \U00002B07')
-uploaded_file = st.file_uploader("")
 if uploaded_file is not None:
     dataframe = pd.read_csv(uploaded_file)
     dataframe.columns = ['time', 'accX', 'accY', 'accZ', 'gyrX', 'gyrY', 'gyrZ', 'magX', 'magY', 'magZ']
