@@ -5,15 +5,25 @@ import MathUtilities
 import getFeaturesWindows
 import emoji
 
+st.set_page_config(
+    # Can be "centered" or "wide". In the future also "dashboard", etc.
+    layout="wide",
+    initial_sidebar_state="expanded",  # Can be "auto", "expanded", "collapsed"
+    # String or None. Strings get appended with "• Streamlit".
+    page_title="Features Extraction Interface \U0001F58A",
+    page_icon="Features Extraction Interface",  # String, anything supported by st.image, or None.
+)
+
 #app
 
-st.title("Features Extraction Interface")
-st.write("Fill the differents items then click on generate")
-
-user_id = st.text_input("User ID")
-datatype = st.sidebar.selectbox("datatype",('accX','accY','accZ'))
-
-uploaded_file = st.file_uploader("Choose a file")
+st.title("Features Extraction Interface \U0001F58A")
+st.markdown("**Fill the differents items then click on generate**")
+st.subheader('User ID')
+user_id = st.text_input("")
+st.sidebar.subheader("Data type")
+datatype = st.sidebar.selectbox("",('accX','accY','accZ'))
+st.subheader('Please Upload Data \U00002B07')
+uploaded_file = st.file_uploader("")
 if uploaded_file is not None:
     dataframe = pd.read_csv(uploaded_file)
     dataframe.columns = ['time', 'accX', 'accY', 'accZ', 'gyrX', 'gyrY', 'gyrZ', 'magX', 'magY', 'magZ']
@@ -25,21 +35,24 @@ if uploaded_file is not None:
     dffinaldata = pd.DataFrame(Xfinaldata)
     #dffinaldata.columns = ['DC', 'energy', 'entropyDFT', 'Deviation','contact','pressure']
     dffinaldata.columns = ['DC', 'energy', 'entropyDFT', 'Deviation']
+else:
+    dffinaldata = pd.DataFrame()
 
-BHK_score = st.text_input("BHK Score")
-
+st.subheader('BHK Score')
+BHK_score = st.text_input(" ")
+st.subheader('Handedness')
 handed = st.selectbox(
-'Left handed or Right handed',
+'',
 ('Left Handed', 'Right Handed'))
-
-constraint = st.selectbox("level of constraint",('1','2','3','4','5','6','7','8','9','10'))
-
+st.subheader('Level of constraint')
+constraint = st.selectbox("",('1','2','3','4','5','6','7','8','9','10'))
+st.subheader('Constraint type')
 finger = st.checkbox("finger")
 wrist = st.checkbox("wrist")
 elbow = st.checkbox("elbow")
 shoulder = st.checkbox("shoulder")
-
-int_val = st.number_input('Frame Resolution', min_value=1, max_value=10, value=5, step=1)
+st.subheader('Frame Resolution')
+int_val = st.number_input('', min_value=1, max_value=10, value=5, step=1)
 
 def get_dataBHK():
     return[]
