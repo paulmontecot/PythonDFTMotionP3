@@ -29,9 +29,7 @@ datatype = st.sidebar.selectbox("",('accX','accY','accZ','Norme'))
 st.subheader('BHK Score')
 BHK_score = st.text_input(" ")
 st.subheader('Handedness')
-handed = st.selectbox(
-'',
-('Right Handed', 'Left Handed'))
+handed = st.selectbox('',('Right Handed', 'Left Handed'))
 st.subheader('Level of constraint')
 constraint = st.selectbox("",('1','2','3','4','5','6','7','8','9','10'))
 st.subheader('Constraint type')
@@ -41,6 +39,7 @@ elbow = st.checkbox("elbow")
 shoulder = st.checkbox("shoulder")
 st.subheader('Frame Resolution')
 int_val = st.number_input('', min_value=1, max_value=10, value=5, step=1)
+
 #Data Upload
 st.subheader('Please Upload Data \U00002B07')
 uploaded_file = st.file_uploader("")
@@ -48,11 +47,13 @@ uploaded_file = st.file_uploader("")
 if uploaded_file is not None:
     dataframe = pd.read_csv(uploaded_file)
     dataframe.columns = ['time', 'accX', 'accY', 'accZ', 'gyrX', 'gyrY', 'gyrZ', 'magX', 'magY', 'magZ']
+
     #Data Type setting
     dataframe['Norme'] = MathUtilities.norme(dataframe)
     Norme = dataframe['Norme']
     st.write(dataframe)
     Data = dataframe[datatype]
+
     #Features extraction
     Xfinaldata, Yfinaldata = getFeaturesWindows.getFeaturesWindows(Data, 1)
     dffinaldata = pd.DataFrame(Xfinaldata)
@@ -60,16 +61,19 @@ if uploaded_file is not None:
     dffinaldata.columns = ['DC', 'energy', 'entropyDFT', 'Deviation']
 
 else:
+     #To avoid display error
      dffinaldata = pd.DataFrame()
 
-
+#Create Metrics
 mean = dffinaldata.mean(axis=0)
 median = dffinaldata.median(axis=0)
 standard_deviation = dffinaldata.std(axis=0)
 variance = dffinaldata.var(axis=0)
+
 df_BHK = pd.DataFrame()
 df_Global = pd.DataFrame()
 
+#Optional: Convert True and False in Red or Green Dots
 if finger == False:
     finger = "\U0001F534"
 elif finger == True:
@@ -90,6 +94,7 @@ if shoulder == False:
 elif shoulder == True:
     shoulder = "\U0001F7E2"
 
+#Generate DataFrames
 if st.button('GENERATE'):
     dataBHK = {"User ID" : user_id,"BHK score": BHK_score, "handedness": handed, "Constraint": constraint,"finger": finger, "wrist":wrist,"elbow":elbow,"shoulder":shoulder}
     dataglobal = {"Mean": mean, "Median": median, "standard deviation": standard_deviation, "variance": variance}
@@ -102,21 +107,25 @@ if st.button('GENERATE'):
     st.dataframe(df_BHK)
     st.dataframe(df_Global)
     st.dataframe(df_Frames)
+
+    #Create the CSV files and set up the names
     df_Frames.to_csv('3.Features_'+ user_id + '_.csv')
     df_Global.to_csv('2.Metrics_'+user_id+'_.csv')
     df_BHK.to_csv('1.Settings_' + user_id + '_.csv')
 
+    #Optional: concatenate all
+    #df_final = pd.concat([df_BHK, df_Global, df_Frames], axis=1)
 
-    df_final = pd.concat([df_BHK, df_Global, df_Frames], axis=1)
-
+    #Generate zip file
     zipObj = ZipFile('sample.zip', 'w')
-    # Add multiple files to the zip
+    # Add the CSV files to the zip
     zipObj.write('3.Features_'+user_id+'_.csv')
     zipObj.write('2.Metrics_'+user_id+'_.csv')
     zipObj.write('1.Settings_'+user_id+'_.csv')
     # close the Zip File
     zipObj.close()
 
+    #button to Dowload the zip file
     with open("sample.zip", "rb") as f:
         bytes = f.read()
     b64 = base64.b64encode(bytes).decode()
