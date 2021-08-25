@@ -102,18 +102,18 @@ if st.button('GENERATE'):
     st.dataframe(df_BHK)
     st.dataframe(df_Global)
     st.dataframe(df_Frames)
-    df_BHK.to_csv('settings.csv')
-    df_Global.to_csv('metrics.csv')
-    df_Frames.to_csv('Features.csv')
+    df_Frames.to_csv('3.Features_'+ user_id + '_.csv')
+    df_Global.to_csv('2.Metrics_'+user_id+'_.csv')
+    df_BHK.to_csv('1.Settings_' + user_id + '_.csv')
 
 
     df_final = pd.concat([df_BHK, df_Global, df_Frames], axis=1)
 
     zipObj = ZipFile('sample.zip', 'w')
     # Add multiple files to the zip
-    zipObj.write('settings.csv')
-    zipObj.write('metrics.csv')
-    zipObj.write('Features.csv')
+    zipObj.write('3.Features_'+user_id+'_.csv')
+    zipObj.write('2.Metrics_'+user_id+'_.csv')
+    zipObj.write('1.Settings_'+user_id+'_.csv')
     # close the Zip File
     zipObj.close()
 
