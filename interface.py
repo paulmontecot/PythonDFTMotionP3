@@ -3,6 +3,7 @@ import pandas as pd
 import base64
 import MathUtilities
 import getFeaturesWindows
+from zipfile import ZipFile
 
 #Config of the app
 st.set_page_config(
@@ -11,7 +12,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",  # Can be "auto", "expanded", "collapsed"
     # String or None. Strings get appended with "• Streamlit".
     page_title="Features Extraction Interface \U0001F58A",
-    page_icon="Features Extraction Interface",  # String, anything supported by st.image, or None.
+    page_icon="\U0001F58A Features Extraction Interface",  # String, anything supported by st.image, or None.
 )
 
 #app
@@ -101,11 +102,24 @@ if st.button('GENERATE'):
     st.dataframe(df_BHK)
     st.dataframe(df_Global)
     st.dataframe(df_Frames)
+    df_BHK.to_csv('settings.csv')
+    df_Global.to_csv('metrics.csv')
+    df_Frames.to_csv('Features.csv')
 
-    df_final = pd.concat([df_BHK, df_Global, df_Frames], axis=0)
 
-    csv = df_final.to_csv(index=False)
-    b64 = base64.b64encode(csv.encode()).decode()
-    st.markdown('### **⬇️ Download output CSV File **')
-    href = f'<a href="data:file/csv;base64,{b64}">Download CSV File</a> (right-click and save as ".csv")'
+    df_final = pd.concat([df_BHK, df_Global, df_Frames], axis=1)
+
+    zipObj = ZipFile('sample.zip', 'w')
+    # Add multiple files to the zip
+    zipObj.write('settings.csv')
+    zipObj.write('metrics.csv')
+    zipObj.write('Features.csv')
+    # close the Zip File
+    zipObj.close()
+
+    with open("sample.zip", "rb") as f:
+        bytes = f.read()
+    b64 = base64.b64encode(bytes).decode()
+    st.markdown('### **⬇️ Download output CSV Files **')
+    href = f'<a href="data:file/csv;base64,{b64}">Download CSV Files</a> (right-click and save as ".zip")'
     st.markdown(href, unsafe_allow_html=True)
