@@ -22,12 +22,6 @@ st.title("Features Extraction Interface \U0001F58A")
 st.markdown("**Fill the differents items then click on generate**")
 
 
-# session = SessionState.get(run_id=0)
-#
-# if st.button("Reset"):
-#   session.run_id += 1
-#
-# st.slider("Slide me!", 0, 100, key=session.run_id)
 
 #Data Infos
 st.subheader('User ID')
@@ -47,7 +41,7 @@ wrist = st.checkbox("wrist")
 elbow = st.checkbox("elbow")
 shoulder = st.checkbox("shoulder")
 st.subheader('Frame Resolution')
-int_val = st.number_input('', min_value=1, max_value=10, value=5, step=1)
+int_val = st.number_input('', min_value=1, max_value=50, value=20, step=1)
 
 #Data Upload
 st.subheader('Please Upload Data \U00002B07')
@@ -62,6 +56,7 @@ if uploaded_file is not None:
     Norme = dataframe['Norme']
     st.write(dataframe)
     Data = dataframe[datatype]
+    getFeaturesWindows.dataWindow = int_val
 
     #Features extraction
     Xfinaldata, Yfinaldata = getFeaturesWindows.getFeaturesWindows(Data, 1)
