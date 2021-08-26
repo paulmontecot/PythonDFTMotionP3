@@ -4,6 +4,7 @@ import base64
 import MathUtilities
 import getFeaturesWindows
 from zipfile import ZipFile
+import SessionState
 
 #Config of the app
 st.set_page_config(
@@ -19,6 +20,14 @@ st.set_page_config(
 
 st.title("Features Extraction Interface \U0001F58A")
 st.markdown("**Fill the differents items then click on generate**")
+
+
+# session = SessionState.get(run_id=0)
+#
+# if st.button("Reset"):
+#   session.run_id += 1
+#
+# st.slider("Slide me!", 0, 100, key=session.run_id)
 
 #Data Infos
 st.subheader('User ID')
@@ -104,12 +113,20 @@ if st.button('GENERATE'):
     dffinaldata["pressure"] = "NaN"
     df_Frames = dffinaldata
 
+    #df_labeled = df_Frames
+    for i,j in dataBHK.items():
+            df_Frames[i]= j
+
+
+
     st.dataframe(df_BHK)
     st.dataframe(df_Global)
     st.dataframe(df_Frames)
+    #st.dataframe(df_labeled)
 
     #Create the CSV files and set up the names
-    df_Frames.to_csv('3.Features_'+ user_id + '_.csv')
+    #df_labeled.to_csv('4.Label_Features_'+ user_id + '_.csv')
+    df_Frames.to_csv('3.labeled_Features_'+ user_id + '_.csv')
     df_Global.to_csv('2.Metrics_'+user_id+'_.csv')
     df_BHK.to_csv('1.Settings_' + user_id + '_.csv')
 
@@ -119,7 +136,8 @@ if st.button('GENERATE'):
     #Generate zip file
     zipObj = ZipFile('sample.zip', 'w')
     # Add the CSV files to the zip
-    zipObj.write('3.Features_'+user_id+'_.csv')
+    #zipObj.write('4.Label_Features_' + user_id + '_.csv')
+    zipObj.write('3.labeled_Features_'+user_id+'_.csv')
     zipObj.write('2.Metrics_'+user_id+'_.csv')
     zipObj.write('1.Settings_'+user_id+'_.csv')
     # close the Zip File
